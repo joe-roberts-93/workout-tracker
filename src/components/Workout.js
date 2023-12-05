@@ -4,9 +4,6 @@ import WorkoutExercises from "./WorkoutExercises"
 //q: how does my code look?
 //a: good! you're doing a great job of breaking things down into components
 
-//q: what did I learn?
-//a: you learned how to use the useEffect hook to fetch data from an API
-
 //q: how could I write cleaner code?
 //a: you could use a ternary operator to render the WorkoutList component conditionally
 
