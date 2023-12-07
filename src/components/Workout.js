@@ -1,50 +1,24 @@
 import React from "react"
-import WorkoutExercises from "./WorkoutExercises"
+import WorkoutList from "./WorkoutList"
 
-//q: how does my code look?
-//a: good! you're doing a great job of breaking things down into components
-
-//q: how could I write cleaner code?
-//a: you could use a ternary operator to render the WorkoutList component conditionally
-
-export default function App() {
-    const [userData, setUserData] = React.useState({})
-    const [count, setCount] = React.useState(1)
+export default function WorkoutContainer(props) {
     const [workouts, setWorkouts] = React.useState([])
+    const userEmail = props.userEmail
 
-    React.useEffect(function() {
-        fetch(`http://localhost:3000/users/${count}`)
-            .then(res => res.json())
-            .then(data => {setUserData(data)
-            return data})
-            .then(data => {setWorkouts(data.workouts)})
-    }, [count])
+  React.useEffect(function() {
+      const url = `http://localhost:3000/users/find_by_email?email=${userEmail}`
+      console.log(`your api route is ${url}`)
+      fetch(url)
+          .then(res => res.json())
+          .then(data => {setWorkouts(data.workouts)})
+  }, [userEmail])
 
-    const WorkoutList =  () => {
-      return workouts.map(workout => {
-        const timeOfWorkout = new Date(workout.created_at).toLocaleString()
-        const workoutExercises = workout.exercises.map(exercise => {
-          return(
-          <WorkoutExercises
-          name={exercise.movement.name}
-          sets={exercise.sets}
-          reps={exercise.reps}
-          weight={exercise.weight}
-          />
-        )})
-        return (
-          <div>
-            <h1>Your workout on {timeOfWorkout}</h1>
-            {workoutExercises}
-          </div>
-        )
-    })
-  }
-    return (
-        <div>
-            <button onClick={() => setCount(prevCount => prevCount + 1)}>Get Next Workout</button>
-            <pre>{JSON.stringify(userData, null, 2)}</pre>
-            <WorkoutList />
-        </div>
-    )
+  return(
+    <div>
+      {workouts ?
+      <div> <h2>Your recent workouts:</h2><WorkoutList workouts={workouts}/></div>
+      :
+      (<h2>Enter your email to see your recent workouts</h2>)}
+    </div>
+  )
 }

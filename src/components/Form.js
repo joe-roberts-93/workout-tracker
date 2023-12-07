@@ -1,10 +1,33 @@
 import React from "react"
 
-export default function FindAccount() {
+export default function Form(props) {
+  const [formData, setFormData] = React.useState({
+    email: ""
+  })
+
+  function handleChange(event) {
+    const {name, value} = event.target
+    setFormData(prevFormData => ({
+        ...prevFormData,
+        [name]: value,
+      }))
+  }
+
   return (
-    <form>
-      <label htmlFor="name">Name</label>
-      <input type="text" id="name" name="name" />
+    <form
+    onSubmit={event => {
+      event.preventDefault()
+      props.handleSubmit(formData)
+    }}
+    >
+      <label htmlFor="email">Email</label>
+      <input
+      type="text"
+      id="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      />
       <button>Submit</button>
     </form>
   )
