@@ -1,13 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import Workout from "./components/Workout.js";
+import WorkoutContainer from './components/WorkoutContainer';
+
 function App() {
   return (
     <div className="App">
       <h1>Welcome to WorkoutTracker!</h1>
-      <Workout/>
+      <WorkoutContainer/>
     </div>
   );
 }
+
 
 export default App;
