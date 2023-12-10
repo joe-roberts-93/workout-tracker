@@ -7,7 +7,6 @@ export default function WorkoutContainer(props) {
 
   React.useEffect(function() {
       const url = `http://localhost:3000/users/find_by_email?email=${userEmail}`
-      console.log(`your api route is ${url}`)
       fetch(url)
           .then(res => res.json())
           .then(data => {setWorkouts(data.workouts)})
