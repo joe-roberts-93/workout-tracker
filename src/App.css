@@ -1,31 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Denk+One&display=swap');
+
 .App {
   text-align: center;
+  font-family: "Roboto", sans-serif;
 }
 
 .App-logo {
+  margin: 10px;
   height: 40vmin;
   pointer-events: none;
+  border-radius: 50%;
+  box-shadow: 0px 0px 20px 0px rgba(127, 255, 104, 1);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 30s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +26,69 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+h1{
+  font-family: 'Denk One', sans-serif;
+  font-size: 3rem;
+  /* color: #ff6868; */
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+}
+
+.form-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  }
+
+label{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+input{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #998383;
+  width: 300px;
+  font-size: 1.2rem;
+}
+
+form button{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #998383;
+  width: 300px;
+  font-size: 1.2rem;
+  background-color: #ff6868;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+form select{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #998383;
+  width: 300px;
+  font-size: 1.2rem;
+}
+
+.button-added{
+  pointer-events: none;
+  background-color: green;
+
 }

@@ -1,6 +1,7 @@
+import React from "react";
 import Workout from "./Workout.js";
 import Form from "./Form.js";
-import React from "react";
+import AddWorkout from "./AddWorkout.js";
 export default function WorkoutContainer() {
   const [userEmail, setUserEmail] = React.useState("")
   function addEmail(formData) {
@@ -15,6 +16,9 @@ export default function WorkoutContainer() {
     <Workout
     userEmail = {userEmail}
     />
+    {userEmail&&
+    <AddWorkout/>}
+    {/* THIS DOESN'T CHECK FOR VALIDITY */}
     </div>
   )
 }

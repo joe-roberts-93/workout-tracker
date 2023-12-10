@@ -9,6 +9,7 @@ export default function WorkoutList(workouts) {
         const workoutExercises = workout.exercises.map(exercise => {
           return(
           <WorkoutExercises
+          key={exercise.id}
           name={exercise.movement.name}
           sets={exercise.sets}
           reps={exercise.reps}
@@ -16,8 +17,8 @@ export default function WorkoutList(workouts) {
           />
         )})
         return (
-          <div>
-            <h1>Your workout on {timeOfWorkout}</h1>
+          <div key = {workout.id}>
+            <h3>Your workout on {timeOfWorkout}</h3>
             {workoutExercises}
           </div>
         )
