@@ -1,5 +1,5 @@
 import './App.css';
-import WorkoutContainer from './components/WorkoutContainer';
+import WorkoutContainer from './components/Container';
 
 function App() {
   return (
@@ -8,10 +8,7 @@ function App() {
       <h1>Welcome to WorkoutTracker!</h1>
       <h1>To do:</h1>
       <ul>
-        <li>Add a button to add additional exercises</li>
-        <li>Do more than just console log this</li>
-        <li>Post this to the API</li>
-        <li>Make the form more user-friendly</li>
+        <li>Fix datetime in API posting</li>
         <li>Actually authenticate user and make sure exercises are valid</li>
       </ul>
       <WorkoutContainer/>
