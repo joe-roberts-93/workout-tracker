@@ -2,14 +2,16 @@ import React from "react";
 import SelectDate from "./add-workout/SelectDate.js";
 import SelectGym from "./add-workout/SelectGym.js";
 import AddExercise from "./add-workout/AddExercise.js";
+import CurrentWorkout from "./CurrentWorkout.js";
 
-export default function AddWorkout(){
+export default function AddWorkout(props){
   const [gyms, setGyms] = React.useState([]);
   const [movements, setMovements] = React.useState([]);
   const [formData, setFormData] = React.useState({
     date: "",
     gym_id: "",
-    exercises: []
+    exercises: [],
+    workoutID: "",
   });
 
   function updateForm(event) {
@@ -33,14 +35,46 @@ export default function AddWorkout(){
       });
   }, []);
 
+  function addWorkout(event) {
+    event.preventDefault();
+    fetch("http://localhost:3000/workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        date: formData.date,
+        gym_id: formData.gym_id,
+        user_id: props.userID}),
+    })
+      .then((r) => r.json())
+      .then((workoutData) => {
+        console.log(workoutData);
+        const workoutID = workoutData.id;
+        formData.exercises.forEach((exercise) => {
+          exercise.workout_id = workoutID;
+          fetch ("http://localhost:3000/exercises", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            exercise
+          }),
+        })
+          .then((r) => r.json())
+          .then((exerciseData) => {
+            console.log(exerciseData);
+          });
+        });
+      });
+  }
+
   return(
     <div>
       <h2>Add Workout</h2>
       <form
-      onSubmit={event => {
-        event.preventDefault()
-        console.log(formData)
-      }}
+      onSubmit={addWorkout}
       >
         <SelectDate
         formData={formData}
@@ -51,14 +85,11 @@ export default function AddWorkout(){
         gyms={gyms}/>
         <AddExercise
         formData={formData}
+        setFormData={setFormData}
         movements={movements}
         />
-                <AddExercise
-        formData={formData}
-        movements={movements}
-        />
-                <AddExercise
-        formData={formData}
+        <CurrentWorkout
+        currentExercises={formData.exercises}
         movements={movements}
         />
         <button>Submit</button>
