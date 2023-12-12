@@ -12,6 +12,15 @@ export default function SelectDate(props){
         value={props.formData.date || ""}
         onChange={props.handleChange}
         />
+        <label htmlFor="time">
+          Time
+        </label>
+        <input
+        type="time"
+        name="time"
+        value={props.formData.time || ""}
+        onChange={props.handleChange}
+        />
     </div>
   )
 }

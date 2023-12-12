@@ -96,13 +96,34 @@ form select{
 
 .button-added{
   pointer-events: none;
-  background-color: green;
+  background-color: lightgray;;
 }
 
 #add-another-exercise{
-  background-color: lightgray;
+  background-color: lightskyblue;
 }
 
 .hidden{
   display: none;
+}
+
+.workout-list{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  overflow-x: scroll
+}
+
+.list-workouts{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #998383;
+}
+
+.list-workouts:nth-child(odd)
+{
+  background-color: #c4f4fb;
 }
