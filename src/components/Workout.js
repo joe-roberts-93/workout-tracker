@@ -1,9 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
 import WorkoutList from "./WorkoutList"
 
 export default function WorkoutContainer(props) {
-
-
 
   return(
     <div>

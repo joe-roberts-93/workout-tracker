@@ -11,6 +11,7 @@ export default function SelectMovement(props){
           onChange = {props.handleChange}
           name = "movement_id"
           value = {props.exerciseData.movement_id || ""}
+          required = {true}
           >
           <option value="" disabled>Select a movement</option>
             { movements.map((movement) => {

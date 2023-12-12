@@ -10,6 +10,11 @@ export default function AddExercise(props) {
 
   function addExercise(event) {
     event.preventDefault()
+    if (exercise.movement_id === ""){
+      alert("Woah there! You haven't picked a movement yet!")
+      return
+    }
+    else{
     const updatedExercises = [...props.formData.exercises, exercise];
     props.setFormData({
       ...props.formData,
@@ -19,6 +24,13 @@ export default function AddExercise(props) {
     event.target.disabled = true
     event.target.innerText = "Exercise Added"
     event.target.classList.add("button-added")
+    setExercise({
+      movement_id: "",
+      sets: "",
+      reps: "",
+      weight: ""
+    })
+  }
   }
 
   function addAnotherExercise(event) {
@@ -31,10 +43,15 @@ export default function AddExercise(props) {
 
   function handleChange(event) {
     const {name, value} = event.target
+    const updatedValue = name === 'movement_id' ? parseInt(value, 10) : value;
     setExercise(prevExercise => ({
-        ...prevExercise,
-        [name]: value,
-      }))
+      ...prevExercise,
+      [name]: updatedValue
+       }))
+      // Need to parse the value of movement_id to an integer
+      // because it is being passed as a string
+      // and the backend expects an integer
+
     }
     return(
     <div>

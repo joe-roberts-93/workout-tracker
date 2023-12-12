@@ -3,6 +3,7 @@ import SelectDate from "./add-workout/SelectDate.js";
 import SelectGym from "./add-workout/SelectGym.js";
 import AddExercise from "./add-workout/AddExercise.js";
 import CurrentWorkout from "./CurrentWorkout.js";
+import AddNotes from "./add-workout/AddNotes.js";
 
 export default function AddWorkout(props){
   const [gyms, setGyms] = React.useState([]);
@@ -11,7 +12,8 @@ export default function AddWorkout(props){
     date: "",
     gym_id: "",
     exercises: [],
-    workoutID: "",
+    notes: "",
+    time: ""
   });
 
   function updateForm(event) {
@@ -44,31 +46,53 @@ export default function AddWorkout(props){
       },
       body: JSON.stringify({
         date: formData.date,
-        gym_id: formData.gym_id,
-        user_id: props.userID}),
+        time: formData.time,
+        notes: formData.notes,
+        gym_id: parseInt(formData.gym_id),
+        user_id: props.userID,
+      }),
     })
-      .then((r) => r.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to create workout: ${response.statusText}`);
+        }
+        return response.json();
+      })
       .then((workoutData) => {
-        console.log(workoutData);
-        const workoutID = workoutData.id;
+        console.log("Workout created:", workoutData);
+        const workoutID = parseInt(workoutData.id);
         formData.exercises.forEach((exercise) => {
-          exercise.workout_id = workoutID;
-          fetch ("http://localhost:3000/exercises", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            exercise
-          }),
-        })
-          .then((r) => r.json())
-          .then((exerciseData) => {
-            console.log(exerciseData);
-          });
+          exercise.exerciseable_id = workoutID;
+          exercise.exerciseable_type = "Workout";
+          fetch("http://localhost:3000/exercises", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              exercise
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Failed to create exercise: ${response.statusText}`);
+              }
+              return response.json();
+            })
+            .then((exerciseData) => {
+              console.log("Exercise created:", exerciseData);
+            })
+            .catch((error) => {
+              console.error("Error creating exercise:", error);
+            });
         });
+      })
+      .catch((error) => {
+        console.error("Error creating workout:", error);
       });
+    setFormData({ date: "", gym_id: "", exercises: [], notes: "", time: "" });
   }
+
 
   return(
     <div>
@@ -92,8 +116,17 @@ export default function AddWorkout(props){
         currentExercises={formData.exercises}
         movements={movements}
         />
+        <AddNotes
+        formData={formData}
+        setFormData={setFormData}
+        handleChange={updateForm}
+        />
         <button>Submit</button>
       </form>
     </div>
   )
 }
+
+
+// Q. How do I set the formData back to the default state?
+// A. setFormData to an empty object
