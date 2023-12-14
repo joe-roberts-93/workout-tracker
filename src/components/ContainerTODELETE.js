@@ -2,6 +2,7 @@ import React from "react";
 import Workout from "./Workout.js";
 import Form from "./Form.js";
 import AddWorkout from "./AddWorkout.js";
+import ConsistencyCalendar from "./ConsistencyCalendar.js";
 export default function Container() {
   const [userEmail, setUserEmail] = React.useState("")
   const [userID, setUserID] = React.useState(0)
@@ -21,10 +22,25 @@ export default function Container() {
 
   return (
     <div>
+      <p>
+        <br></br>Currently the calendar shows the year to date</p>
+        <p>Could structure with grid and columns for each month, add class</p>
     <Form
     handleSubmit={addEmail}
     userID = {userID}
     />
+
+    {
+      userEmail&&
+      <div>
+      <h2>Your workouts so far this year</h2>
+      <div class = "calendar">
+        <ConsistencyCalendar
+        workouts = {workouts}
+        />
+      </div>
+      </div>
+    }
     <Workout
     userEmail = {userEmail}
     userID = {userID}

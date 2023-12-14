@@ -6,8 +6,8 @@
 }
 
 .App-logo {
-  margin: 10px;
-  height: 40vmin;
+  margin: 20px;
+  height: 20vh;
   pointer-events: none;
   border-radius: 50%;
   box-shadow: 0px 0px 20px 0px rgba(127, 255, 104, 1);
@@ -28,10 +28,47 @@
   }
 }
 
+nav{
+  width: 100%;
+  height: 4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffa648;
+  color: white;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.nav__list{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style-type: none;
+}
+
+.nav__links{
+  width: 33%;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav__links:hover{
+  color: rgb(182, 170, 235);
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+}
+
 h1{
   font-family: 'Denk One', sans-serif;
   font-size: 3rem;
-  /* color: #ff6868; */
+  margin: 20px;
 }
 
 form{
@@ -112,7 +149,6 @@ form select{
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  overflow-x: scroll
 }
 
 .list-workouts{
@@ -120,10 +156,56 @@ form select{
   flex-direction: column;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px solid #998383;
+  border-top: 1px solid rgba(104, 227, 255, 0.4);
+  border-bottom: 1px solid rgba(104, 227, 255, 0.4);
 }
 
 .list-workouts:nth-child(odd)
 {
   background-color: #c4f4fb;
+}
+
+.calendar{
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.day{
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+}
+
+.tooltiptext{
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(127, 255, 104, 0.4);
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 100%;
+}
+
+.day:hover .tooltiptext{
+  visibility: visible;
+}
+
+#today{
+  background-color: green;
+}
+
+.rest-day{
+  background-color: whitesmoke
+}
+
+.workout-day{
+  background-color: #ff6868;
 }

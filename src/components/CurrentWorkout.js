@@ -6,7 +6,6 @@ export default function CurrentWorkout(props){
   React.useEffect(() => {
     setCurrentExercises(props.currentExercises)
   }, [props.currentExercises])
-  console.log(props.movements)
   const exerciseList = currentExercises?.length > 0 ? (currentExercises.map((exercise, index) => {
     const movement_name = (props.movements.find(movement => movement.id === parseInt(exercise.movement_id))).name
     return(
