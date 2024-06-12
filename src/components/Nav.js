@@ -1,14 +1,17 @@
 import React from "react";
-export default function Nav(){
-  return(
-    <div>
-      <nav>
-        <ul className = "nav__list">
-          <li className = "nav__links">Your Overview</li>
-          <li className = "nav__links">Your Workouts</li>
-          <li className = "nav__links">Your Goals</li>
-        </ul>
-      </nav>
-  </div>
-  )
+import {Link} from "react-router-dom";
+
+export default function Nav() {
+  return (
+    <div className="nav">
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/calendar">Calendar</Link>
+        </li>
+      </ul>
+    </div>
+  );
 }
