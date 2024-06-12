@@ -3,7 +3,7 @@ import React from "react";
 export default function SelectGym(props){
   const gyms = props.gyms
   return(
-    <div className = "form-row">
+    <div className = "form__row select-gym">
         <label htmlFor="gym">
           Gym
         </label>

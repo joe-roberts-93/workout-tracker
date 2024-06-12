@@ -20,10 +20,6 @@ export default function AddExercise(props) {
       ...props.formData,
       exercises: updatedExercises
     })
-    document.querySelector("#add-another-exercise").classList.remove("hidden")
-    event.target.disabled = true
-    event.target.innerText = "Exercise Added"
-    event.target.classList.add("button-added")
     setExercise({
       movement_id: "",
       sets: "",
@@ -33,14 +29,6 @@ export default function AddExercise(props) {
   }
   }
 
-  function addAnotherExercise(event) {
-    event.preventDefault()
-    document.querySelector("#add-exercise").disabled = false
-    document.querySelector("#add-exercise").innerText = "Add Exercise"
-    document.querySelector("#add-exercise").classList.remove("button-added")
-    document.querySelector("#add-another-exercise").classList.add("hidden")
-  }
-
   function handleChange(event) {
     const {name, value} = event.target
     const updatedValue = name === 'movement_id' ? parseInt(value, 10) : value;
@@ -48,22 +36,19 @@ export default function AddExercise(props) {
       ...prevExercise,
       [name]: updatedValue
        }))
-      // Need to parse the value of movement_id to an integer
-      // because it is being passed as a string
-      // and the backend expects an integer
-
     }
     return(
-    <div>
-    <h3>Build your Workout</h3>
+    <div className = "add-exercise-container">
+    <h3>Add an exercise to your workout</h3>
     <SelectMovement
     movements = {props.movements}
     exerciseData = {exercise}
     handleChange = {handleChange}
     />
     <div className="exercise-buttons">
-      <button onClick={addExercise} id="add-exercise">Add Exercise</button>
-      <button onClick={addAnotherExercise} id="add-another-exercise" className="hidden">Add another exercise</button>
+      <button onClick={addExercise} id="add-exercise-button">
+        Add this to your workout <img src = "plus-sign.svg" alt="plus sign" className="plus-sign"/>
+      </button>
     </div>
     </div>
     )

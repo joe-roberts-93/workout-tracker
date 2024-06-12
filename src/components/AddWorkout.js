@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import SelectDate from "./add-workout/SelectDate.js";
 import SelectGym from "./add-workout/SelectGym.js";
 import AddExercise from "./add-workout/AddExercise.js";
 import CurrentWorkout from "./CurrentWorkout.js";
 import AddNotes from "./add-workout/AddNotes.js";
+import { AuthContext } from "./AuthContext.js";
 
 export default function AddWorkout(props){
   const [gyms, setGyms] = React.useState([]);
@@ -15,6 +16,9 @@ export default function AddWorkout(props){
     notes: "",
     time: ""
   });
+  const token = useContext(AuthContext)
+  console.log("TOKEN:")
+  console.log(token)
 
   function updateForm(event) {
     const name = event.target.name;
@@ -25,12 +29,24 @@ export default function AddWorkout(props){
     });
   }
   React.useEffect(() => {
-    fetch("http://localhost:3000/gyms")
+    fetch("http://localhost:3000/gyms",
+    {
+      headers: {
+        'Authorization': `Bearer ${token.token}`
+      }
+    }
+    )
       .then((r) => r.json())
       .then((data) => {
         setGyms(data);
       });
-    fetch("http://localhost:3000/movements")
+    fetch("http://localhost:3000/movements",
+    {
+      headers: {
+        'Authorization': `Bearer ${token.token}`
+      }
+    }
+    )
       .then((r) => r.json())
       .then((data) => {
         setMovements(data);
@@ -43,13 +59,15 @@ export default function AddWorkout(props){
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token.token}`
       },
       body: JSON.stringify({
+        workout:{
         date: formData.date,
         time: formData.time,
         notes: formData.notes,
-        gym_id: parseInt(formData.gym_id),
-        user_id: props.userID,
+        gym_id: parseInt(formData.gym_id)
+      }
       }),
     })
       .then((response) => {
@@ -94,39 +112,25 @@ export default function AddWorkout(props){
   }
 
 
-  return(
-    <div>
-      <h2>Add Workout</h2>
-      <form
-      onSubmit={addWorkout}
-      >
-        <SelectDate
-        formData={formData}
-        handleChange={updateForm}/>
-        <SelectGym
-        formData={formData}
-        handleChange={updateForm}
-        gyms={gyms}/>
-        <AddExercise
-        formData={formData}
-        setFormData={setFormData}
-        movements={movements}
-        />
-        <CurrentWorkout
-        currentExercises={formData.exercises}
-        movements={movements}
-        />
-        <AddNotes
-        formData={formData}
-        setFormData={setFormData}
-        handleChange={updateForm}
-        />
-        <button>Submit</button>
+  return (
+    <div className="max-w-2xl mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Adding a new workout? Classic you!</h2>
+      <form className="space-y-4" onSubmit={addWorkout}>
+        <div className="bg-white p-4 rounded-md shadow-md">
+          <h3 className="text-lg font-medium mb-2">Tell us about your workout:</h3>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <SelectDate formData={formData} handleChange={updateForm} />
+            <SelectGym formData={formData} handleChange={updateForm} gyms={gyms} />
+          </div>
+          <AddNotes formData={formData} setFormData={setFormData} handleChange={updateForm} />
+        </div>
+        <AddExercise formData={formData} setFormData={setFormData} movements={movements} />
+        <div className="bg-white p-4 rounded-md shadow-md">
+          <CurrentWorkout currentExercises={formData.exercises} movements={movements}  setFormData={setFormData}/>
+          <button className="bg-accent text-white py-2 px-4 rounded-md hover:bg-accent-dark">Submit</button>
+        </div>
       </form>
     </div>
-  )
+  );
+
 }
-
-
-// Q. How do I set the formData back to the default state?
-// A. setFormData to an empty object

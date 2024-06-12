@@ -2,7 +2,8 @@ import React from "react"
 
 export default function Form(props) {
   const [formData, setFormData] = React.useState({
-    email: ""
+    email: "",
+    password: ""
   })
 
   function handleChange(event) {
@@ -27,6 +28,14 @@ export default function Form(props) {
       name="email"
       value={formData.email}
       onChange={handleChange}
+      />
+      <label htmlFor="password">Password</label>
+      <input
+        type = "password"
+        id = "password"
+        name = "password"
+        value = {formData.password}
+        onChange = {handleChange}
       />
       <button>Submit</button>
     </form>
