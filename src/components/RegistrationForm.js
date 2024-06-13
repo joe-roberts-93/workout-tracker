@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { AuthContext } from './AuthContext';
 
 const RegistrationForm = () => {
+  const { setToken } = useContext(AuthContext);
   const [first_name, setFirstName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -27,6 +28,7 @@ const RegistrationForm = () => {
 
       const data = response.data;
       setMessage(`Registration successful! Token: ${data.token}`);
+      setToken(data.token);
     } catch (error) {
       const errorMessages = error.response?.data?.errors
         ? error.response.data.errors.map(err => err.message).join(', ')
@@ -36,8 +38,8 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="bg-background rounded-lg shadow-lg p-8 max-w-md mx-auto">
-      <h2 className="text-2xl font-semibold text-primary mb-6">Register</h2>
+    <div className="bg-background rounded-lg shadow-lg p-8 max-w-md mx-auto my-10">
+      <h2 className="text-2xl font-semibold text-primary m-2">Register</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {[
@@ -64,7 +66,7 @@ const RegistrationForm = () => {
 
         <button
           type="submit"
-          className="bg-accent hover:bg-opacity-90 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-200"
+          className="bg-accent hover:bg-opacity-90 text-white font-semibold py-2 px-4 rounded-md shadow transition duration-200"
         >
           Register
         </button>

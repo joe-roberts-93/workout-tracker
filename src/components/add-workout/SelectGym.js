@@ -3,15 +3,14 @@ import React from "react";
 export default function SelectGym(props){
   const gyms = props.gyms
   return(
-    <div className = "form__row select-gym">
-        <label htmlFor="gym">
-          Gym
-        </label>
-        <select
+    <div>
+      <label htmlFor="gym" className="block text-sm font-medium text-gray-700">Gym</label>
+      <select
         onChange = {props.handleChange}
         name="gym_id"
         value={props.formData.gym_id || ""}
-        >
+        className="workout-input"
+      >
         <option value="" disabled>Select a gym</option>
         { gyms.map((gym) => {
           return(
@@ -23,7 +22,7 @@ export default function SelectGym(props){
           )
           })
         }
-        </select>
+      </select>
     </div>
   )
 }
