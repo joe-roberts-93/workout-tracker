@@ -16,7 +16,7 @@ import { AuthProvider } from './components/AuthContext';
 // function App() {
 //   return (
 //     <div className="App">
-//     <img src="./star-logo.png" alt="the logo for this application" className="App-logo"/>
+//
 //     {/* insert nav below */}
 //     <h1>Welcome to WorkoutTracker!</h1>
 //     <RouterProvider router={router}>

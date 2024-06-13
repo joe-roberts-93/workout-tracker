@@ -22,7 +22,7 @@ export default function Links() {
   return (
     <>
       {baseLinks.map((link, index) => (
-        <li key={index}>
+        <li key={index} className="list-none">
           <Link to={link.to} className="nav-item">{link.text}</Link>
         </li>
       ))}

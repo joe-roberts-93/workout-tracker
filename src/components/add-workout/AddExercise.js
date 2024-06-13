@@ -38,18 +38,18 @@ export default function AddExercise(props) {
        }))
     }
     return(
-    <div className = "add-exercise-container">
-    <h3>Add an exercise to your workout</h3>
-    <SelectMovement
-    movements = {props.movements}
-    exerciseData = {exercise}
-    handleChange = {handleChange}
-    />
-    <div className="exercise-buttons">
-      <button onClick={addExercise} id="add-exercise-button">
-        Add this to your workout <img src = "plus-sign.svg" alt="plus sign" className="plus-sign"/>
-      </button>
-    </div>
-    </div>
+      <div className="bg-white p-4 rounded-md shadow mb-4">
+        <h3 className="text-lg font-medium mb-1">Add an exercise to your workout:</h3>
+        <SelectMovement
+          movements = {props.movements}
+          exerciseData = {exercise}
+          handleChange = {handleChange}
+        />
+        <div className="flex justify-end">
+          <button onClick={addExercise} className="bg-accent text-white py-2 px-4 rounded-md hover:bg-accent-dark">
+            Add this to your workout
+          </button>
+        </div>
+      </div>
     )
 }

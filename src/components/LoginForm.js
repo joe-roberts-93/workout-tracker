@@ -11,6 +11,7 @@ const LoginForm = ({ closeModal }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { setToken } = useContext( AuthContext);
+  const {setUserData} = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,10 +22,11 @@ const LoginForm = ({ closeModal }) => {
         }, { withCredentials: true });
       // Assuming your Rails API returns a token upon successful login
       const token = response.data.token;
+      const user = response.data.user;
       // Store token in local storage or cookie
       localStorage.setItem('token', token);
       setToken(token);
-      console.log(`Token: ${token}`)
+      localStorage.setItem('user', JSON.stringify(user));
       // Redirect to dashboard or perform other actions upon successful login
       Swal.fire({
         title: 'Login successful',
